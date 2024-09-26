@@ -34,6 +34,7 @@ services:
     stop_grace_period: 135s # Voting round 90s + reveal deadline 45s
     depends_on:
       - indexer
+      - value-provider
 
   client:
     profiles: [scaling]
@@ -64,6 +65,13 @@ services:
       SORTITION_PRIVATE_KEY: ${FAST_UPDATES_SORTITION_PRIVATE_KEY}
     depends_on:
       - indexer
+
+  value-provider:
+    profiles: [scaling]
+    container_name: ${COMPOSE_PROJECT_NAME}-value-provider
+    image: ghcr.io/flare-foundation/ftso-v2-example-value-provider:latest
+    ports:
+      - "3101:3101"
 
 volumes:
   indexer_data:
