@@ -71,6 +71,8 @@ services:
       SORTITION_PRIVATE_KEY: ${FAST_UPDATES_SORTITION_PRIVATE_KEY}
     depends_on:
       - indexer
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   value-provider:
     profiles: [scaling]
